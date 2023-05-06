@@ -12,6 +12,16 @@ use std::sync::Arc;
 use tokio::net::UdpSocket;
 use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver};
 
+fn parse_socket_addr(s: &str) -> Result<SocketAddr, Box<dyn std::error::Error>> {
+    match s.parse::<SocketAddr>() {
+        Ok(addr) => Ok(addr),
+        Err(e) => {
+            eprintln!("{e} parsing {}", s);
+            Err(e.into())
+        }
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
@@ -23,8 +33,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
 
-    let local_addr = args[1].parse::<SocketAddr>()?;
-    let remote_addr = args[2].parse::<SocketAddr>()?;
+    let local_addr = parse_socket_addr(&args[1])?;
+    let remote_addr = parse_socket_addr(&args[2])?;
 
     // Using Arc so we can "split" the UdpSocket between two threads
     // from: https://docs.rs/tokio/latest/tokio/net/struct.UdpSocket.html#example-splitting-with-arc

@@ -33,6 +33,34 @@ this is from term2 to term1
 wink@3900x 23-05-06T18:49:07.505Z:~/prgs/rust/myrepos/rust-udp-client-server (main)
 ```
 
+Use IpV6 addresses to communicate between terminals on the same computer:
+
+Term1:
+```
+wink@3900x 23-05-06T19:51:28.222Z:~/prgs/rust/myrepos/rust-udp-p2p-chat (main)
+$ cargo run [2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4001 [2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4000
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/rust-udp-p2p-chat '[2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4001' '[2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4000'`
+hi
+hello v6
+good v6
+^C
+wink@3900x 23-05-06T19:57:38.596Z:~/prgs/rust/myrepos/rust-udp-p2p-chat (main)
+```
+
+Term2:
+```
+wink@3900x 23-05-06T19:50:08.743Z:~/prgs/rust/myrepos/rust-udp-p2p-chat (main)
+$ cargo run [2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4000 [2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4001
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/rust-udp-p2p-chat '[2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4000' '[2600:1700:8e80:55ff:6002:2be:f4e6:b8ac]:4001'`
+hi
+hello v6
+good v6
+^C
+wink@3900x 23-05-06T19:52:00.855Z:~/prgs/rust/myrepos/rust-udp-p2p-chat (main)
+```
+
 ## License
 
 Licensed under either of
