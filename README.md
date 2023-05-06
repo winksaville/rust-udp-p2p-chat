@@ -4,8 +4,34 @@ Initially written by GPT-4 in answer to the question:
 
 "Write a rust app that uses udp for communication to implement a chat program. Two instances of this app can then be used to send text messages, read as lines of text, from stdin and received text messages are sent to stdout."
 
-This doesn't compile with rustc v1.69.0 but will be my initial
-commit to capture exactly what GPT-4 wrote on 2023-05-06.
+The initial commit, as proposed by GPT-4, didn't compile. It seems
+GPT-4 didn't quite understand want I wanted, probably my fault.
+In any case this now works, at least on this is working when both
+instances are on the same computer:
+
+Term1:
+```
+wink@3900x 23-05-06T18:48:36.844Z:~/prgs/rust/myrepos/rust-udp-client-server (main)
+$ cargo run 127.0.0.1:4000 127.0.0.1:4001
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/rust-udp-client-server '127.0.0.1:4000' '127.0.0.1:4001'`
+message from term1 to term2
+this is from term2 to term1
+^C
+wink@3900x 23-05-06T18:49:11.964Z:~/prgs/rust/myrepos/rust-udp-client-server (main)
+```
+
+Term2:
+```
+wink@3900x 23-05-06T18:48:34.049Z:~/prgs/rust/myrepos/rust-udp-client-server (main)
+$ cargo run 127.0.0.1:4001 127.0.0.1:4000
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target/debug/rust-udp-client-server '127.0.0.1:4001' '127.0.0.1:4000'`
+message from term1 to term2
+this is from term2 to term1
+^C
+wink@3900x 23-05-06T18:49:07.505Z:~/prgs/rust/myrepos/rust-udp-client-server (main)
+```
 
 ## License
 
